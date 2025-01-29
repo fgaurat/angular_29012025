@@ -1,0 +1,6 @@
+GET http://localhost:5000/todos
+
+
+###
+GET http://localhost:5000/todos/1
+
