@@ -1,0 +1,10 @@
+
+
+<button (click)="increment()">Increment</button>
+<button (click)="incBy3(3)">Increment +3</button>
+
+<div>Current Count: {{ (count$ | async)!.counterValue }}</div>
+
+<button (click)="decrement()">Decrement</button>
+
+<button (click)="reset()">Reset Counter</button>
