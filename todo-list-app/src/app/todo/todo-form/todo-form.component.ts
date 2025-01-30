@@ -6,6 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { TodoService } from '../../services/todo.service';
+import { MessageQueueService } from '../../services/message-queue.service';
+import { Action } from '../../models/action';
+import { ActionType } from '../../models/action-type';
 
 @Component({
   selector: 'app-todo-form',
@@ -15,6 +18,7 @@ import { TodoService } from '../../services/todo.service';
 })
 export class TodoFormComponent {
   todoService:TodoService = inject(TodoService)
+  messageQueueService:MessageQueueService = inject(MessageQueueService)
   todoForm: Todo = {
     title: "",
     completed: false
@@ -22,6 +26,8 @@ export class TodoFormComponent {
 
   submitTodo() {
     console.log("todoForm",this.todoForm);
-    this.todoService.save(this.todoForm).subscribe()
+    // this.todoService.save(this.todoForm).subscribe()
+    const action:Action = {type:ActionType.NEW_TODO,payload:this.todoForm};
+    this.messageQueueService.dispatch(action)
   }
 }
