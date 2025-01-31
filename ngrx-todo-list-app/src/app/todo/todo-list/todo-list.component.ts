@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Todos } from '../../models/todo';
+import { Todo, Todos } from '../../models/todo';
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
@@ -8,7 +8,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { loadTodos } from '../todo.actions';
+import { deleteTodo, loadTodos, TodoActionPayload } from '../todo.actions';
 
 @Component({
   selector: 'app-todo-list',
@@ -25,6 +25,12 @@ export class TodoListComponent implements OnInit{
 
   ngOnInit(): void {
     this.store.dispatch(loadTodos())
+  }
+
+  onDelete(todo:Todo){
+    const p:TodoActionPayload = {todo}
+    this.store.dispatch(deleteTodo(p))
+
   }
 
 
