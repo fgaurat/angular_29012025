@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TodoService } from '../services/todo.service';
 import { loadTodos, loadTodosSuccess } from './todo.actions';
-import { map, switchMap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { Todos } from '../models/todo';
 
 @Injectable({
@@ -15,6 +15,7 @@ export class TodoEffectService {
   loadTodos$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadTodos),
+      tap((data) => console.log("data",data)),
       switchMap(() => this.todoService.findAll()),
       map((todos: Todos) => loadTodosSuccess({ todos }))
     )

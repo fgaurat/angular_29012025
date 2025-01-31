@@ -8,6 +8,8 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideEffects } from '@ngrx/effects';
 import { todoReducer } from './todo/todo.reducer';
 import { Todos } from './models/todo';
+import { TodoEffectService } from './todo/todo-effect.service';
+import { provideHttpClient } from '@angular/common/http';
 
 
 export const appConfig: ApplicationConfig = {
@@ -16,5 +18,7 @@ export const appConfig: ApplicationConfig = {
      provideAnimationsAsync(),
      provideStore({todoList:todoReducer}),
      provideStoreDevtools({ maxAge: 25,logOnly: !isDevMode() }),
-     provideEffects()]
+     provideEffects(TodoEffectService),
+     provideHttpClient()
+    ]
 };

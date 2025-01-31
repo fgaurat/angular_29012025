@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { decrement, incBy, increment, reset } from './counter.actions';
 import { CommonModule } from '@angular/common';
+import { AppState } from './app.config';
+import { CounterState } from './counter.reducer';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +15,10 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'ngrx-counter-app';
-  count$: Observable<{counterValue:number}>;
-  constructor(private store: Store<{ count: {counterValue:number} }>) {
-    this.count$ = store.select('count');
-    //this.count$ = store.select((state)=>state.count.counterValue);
+  count$: Observable<CounterState>;
+  constructor(private store: Store<AppState>) {
+    // this.count$ = store.select('count');
+    this.count$ = store.select((state:AppState)=>state.count);
   }
 
   increment() {
